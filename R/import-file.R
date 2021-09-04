@@ -272,6 +272,6 @@ is_excel <- function(path) {
 }
 
 is_sas <- function(path) {
-  isTRUE(tools::file_ext(path) %in% c("sas7bdat"))
+  isTRUE(tools::file_ext(path) %in% c("sas7bdat", "xpt"))
 }
 
