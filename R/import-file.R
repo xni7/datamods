@@ -189,7 +189,13 @@ import_file_server <- function(id,
           skip = input$skip_rows,
           encoding = input$encoding
         ), silent = TRUE)
-      }else{
+      } else if(is_sas_xpt(input$file$datapath)) {
+        imported <- try(rio::import(
+          file = input$file$datapath#,
+          #skip = input$skip_rows,
+          #encoding = input$encoding
+        ), silent = TRUE)
+      } else {
          imported <- try(rio::import(
           file = input$file$datapath,
           skip = input$skip_rows,
@@ -272,6 +278,9 @@ is_excel <- function(path) {
 }
 
 is_sas <- function(path) {
-  isTRUE(tools::file_ext(path) %in% c("sas7bdat", "xpt"))
+  isTRUE(tools::file_ext(path) %in% c("sas7bdat"))
 }
 
+is_sas_xpt <- function(path) {
+  isTRUE(tools::file_ext(path) %in% c("xpt"))
+}
